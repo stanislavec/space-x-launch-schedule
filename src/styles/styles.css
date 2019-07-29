@@ -1,0 +1,33 @@
+.up-coming-flights,
+.latest-flights {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.flight-item {
+  padding: 30px;
+}
+
+.flight-item__row {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0;
+}
+
+.flight-item__row p {
+  width: 70%;
+  padding-left: 5px;
+}
+
+label {
+  font-size: 12px;
+  width: 30%;
+  font-weight: 800;
+  border-right: 1px solid grey;
+}
+
+p {
+  margin: unset;
+}
