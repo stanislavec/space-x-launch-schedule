@@ -1,4 +1,6 @@
-# space-x-launches
+# space-x-launches - Space-X launch schedule (date, time, images and etc.)
+### Based on [Space-X Public Open Source REST API](https://github.com/r-spacex/SpaceX-API)
+### Created with [Vue.js](https://vuejs.org/)
 
 ## Project setup
 ```
@@ -10,20 +12,5 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Published version
+[stanislavec.github.io/space-x-launch-schedule/](https://stanislavec.github.io/space-x-launch-schedule/)
