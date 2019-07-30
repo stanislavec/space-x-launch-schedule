@@ -1,27 +1,42 @@
 <template>
   <div class="up-coming-flights">
-    <b-container>
+    <Preloader v-if="preloader" />
+    <b-container v-else>
       <b-row>
-        <router-link v-for="flight in this.flights" :to="{ name: 'flight', params: { id: flight.launch_date_unix }}">
-          <b-col cols="6" md="4" class="flight-item">
+        <b-col
+          v-for="(flight, index) in this.flights"
+          :key="index"
+          lg="4"
+          md="6"
+          sm="6"
+          xs="12"
+          class="flight-item shadow-sm p-3 mb-5 rounded"
+        >
+          <div class="card-item bg-white">
             <div class="flight-item__row">
               <label>Launch Site</label>
-              <p>{{flight.launch_site.site_name_long}}</p>
+              <p>{{ flight.launch_site.site_name_long }}</p>
             </div>
             <div class="flight-item__row">
               <label>Flight Number</label>
-              <p>{{flight.flight_number}}</p>
+              <p>{{ flight.flight_number }}</p>
             </div>
             <div class="flight-item__row">
               <label>Mission Name</label>
-              <p>{{flight.mission_name}}</p>
+              <p>{{ flight.mission_name }}</p>
             </div>
             <div class="flight-item__row">
               <label>Launch Date</label>
-              <p>{{moment.unix(flight.launch_date_unix).format('MMMM Do YYYY, h:mm:ss')}}</p>
+              <p>
+                {{
+                  moment
+                    .unix(flight.launch_date_unix)
+                    .format("MMMM Do YYYY, h:mm:ss")
+                }}
+              </p>
             </div>
-          </b-col>
-        </router-link>
+          </div>
+        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -29,20 +44,27 @@
 
 <script>
 import axios from "axios";
-import BootstrapVue from 'bootstrap-vue';
+import Preloader from './preloader';
 
 export default {
   name: "UpComing",
   data: () => {
     return {
-      flights: []
+      flights: [],
+      preloader: true
     };
+  },
+  components:{
+    Preloader
   },
 
   mounted() {
     axios
       .get("https://api.spacexdata.com/v3/launches/upcoming")
-      .then(response => (this.flights = response.data));
+      .then(response => {this.flights = response.data})
+      .finally(() => {
+        this.preloader = false
+      });
   }
 };
 </script>

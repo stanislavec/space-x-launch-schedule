@@ -12,28 +12,31 @@
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-      <b-carousel-slide v-for="image in this.images" :img-src="image">
-      </b-carousel-slide>
+      <b-carousel-slide
+        v-for="(image, index) in this.images"
+        :key="index"
+        :img-src="image"
+      />
     </b-carousel>
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        slide: 0,
-        sliding: null
-      }
+export default {
+  props: ["images"],
+  data() {
+    return {
+      slide: 0,
+      sliding: null
+    };
+  },
+  methods: {
+    onSlideStart(slide) {
+      this.sliding = true;
     },
-    props: ['images'],
-    methods: {
-      onSlideStart(slide) {
-        this.sliding = true
-      },
-      onSlideEnd(slide) {
-        this.sliding = false
-      }
-    },
+    onSlideEnd(slide) {
+      this.sliding = false;
+    }
   }
+};
 </script>
