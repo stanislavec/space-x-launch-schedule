@@ -1,8 +1,8 @@
 <template>
   <div class="mt-3">
     <b-button-group size="lg">
-      <router-link to="/upcoming"><b-button>Up coming</b-button></router-link>
-      <router-link to="/latest"><b-button>Latest</b-button></router-link>
+      <router-link :to="createLinks('upcoming')"><b-button>Up coming</b-button></router-link>
+      <router-link :to="createLinks('latest')"><b-button>Latest</b-button></router-link>
     </b-button-group>
   </div>
 </template>
@@ -10,7 +10,13 @@
 <script>
 
 export default {
-  name: "Nav"
+  name: "Nav",
+
+  methods: {
+    createLinks(url) {
+      return process.env.NODE_ENV === 'production' ? `/space-x-launch-schedule/${url}` : `/${url}`
+    }
+  }
 };
 </script>
 

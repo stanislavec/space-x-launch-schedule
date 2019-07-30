@@ -21,22 +21,22 @@ const router = new VueRouter({
   hash: false,
   routes: [
     {
-      path: "/",
+      path: process.env.NODE_ENV === 'production' ? '/space-x-launch-schedule/' : '/',
       name: "home",
       component: Main
     },
     {
-      path: "/upcoming",
+      path: process.env.NODE_ENV === 'production' ? '/space-x-launch-schedule/upcoming' : '/upcoming',
       name: "upComing",
       component: upComing
     },
     {
-      path: "/latest",
+      path: process.env.NODE_ENV === 'production' ? '/space-x-launch-schedule/latest' : '/latest',
       name: "latestFlights",
       component: latestFlights
     },
     {
-      path: "/flight/:id",
+      path: process.env.NODE_ENV === 'production' ? '/space-x-launch-schedule/flight/:id' : '/flight/:id',
       name: "flight",
       component: Flight,
       props: true

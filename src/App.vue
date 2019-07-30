@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="mask">
-      <Nav v-if="this.$route.path !== '/'"/>
+      <Nav v-if="checkRoute()"/>
       <router-view />
     </div>
   </div>
@@ -14,6 +14,16 @@ export default {
   components: {
     Nav
   },
+
+  methods: {
+    checkRoute() {
+      if (process.env.NODE_ENV === 'production') {
+        return this.$route.path !== '/space-x-launch-schedule/'
+      } else {
+        return this.$route.path !== '/'
+      }
+    }
+  }
 };
 </script>
 
@@ -31,7 +41,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 
-  background: url(/img/background.ee42e372.jpg);
+  background: url('https://live.staticflickr.com/65535/48052269657_54c9f02122_h.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
