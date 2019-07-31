@@ -41,3 +41,16 @@ a {
 .btn-block {
   border-radius: unset!important;
 }
+
+.card-item {
+  background-color: rgba(255, 255, 255, 0.85)!important;
+  border-radius: 5px;
+}
+
+.card-item button {
+  border-bottom: unset!important;
+  border-left: unset!important;
+  border-right: unset!important;
+  border-bottom-left-radius: 5px!important;
+  border-bottom-right-radius: 5px!important;
+}

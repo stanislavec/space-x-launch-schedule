@@ -12,7 +12,7 @@
           xs="12"
           class="flight-item shadow-sm p-3 mb-5 rounded"
         >
-          <div class="card-item bg-white">
+          <div class="card-item">
             <div class="flight-item__row">
               <label>Launch Site</label>
               <p>{{ flight.launch_site.site_name_long }}</p>
