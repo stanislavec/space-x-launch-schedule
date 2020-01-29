@@ -1,17 +1,9 @@
 <template>
   <b-container v-if="this.flightItem">
     <b-jumbotron :header="jumboHeader()">
-      <p class="details">
-        {{ this.flightItem.details }}
-      </p>
+      <p class="details">{{ this.flightItem.details }}</p>
       <b-row align-h="center">
-        <b-col
-          lg="4"
-          md="6"
-          sm="6"
-          xs="12"
-          class="shadow-sm p-3 mb-5 bg-white rounded"
-        >
+        <b-col lg="6" md="6" sm="6" xs="12" class="shadow-sm p-3 mb-5 bg-white rounded">
           <div class="flight-item__row">
             <label>Launch Site</label>
             <p>{{ this.flightItem.launch_site.site_name_long }}</p>
@@ -32,9 +24,9 @@
             <label>Launch Date</label>
             <p>
               {{
-                moment
-                  .unix(this.flightItem.launch_date_unix)
-                  .format("MMMM Do YYYY, h:mm:ss")
+              moment
+              .unix(this.flightItem.launch_date_unix)
+              .format("MMMM Do YYYY, h:mm:ss")
               }}
             </p>
           </div>
@@ -43,14 +35,14 @@
             <p>
               <b-badge :variant="badge(this.flightItem)">
                 {{
-                  this.flightItem.launch_success ? "Success" : "Failure"
+                this.flightItem.launch_success ? "Success" : "Failure"
                 }}
               </b-badge>
             </p>
           </div>
         </b-col>
         <b-col
-          lg="4"
+          lg="6"
           md="6"
           sm="6"
           xs="12"
@@ -59,25 +51,22 @@
                 this.flightItem.links.flickr_images.length
             "
         >
-          <gallery
-            :images="this.flightItem.links.flickr_images"
-          />
+          <gallery :images="this.flightItem.links.flickr_images" />
         </b-col>
       </b-row>
       <div class="video" v-if="this.flightItem.links.youtube_id">
         <b-embed
-            type="iframe"
-            aspect="16by9"
-            :src='generateVudeoUrl(this.flightItem.links.youtube_id)'
-            allowfullscreen
-          ></b-embed>
+          type="iframe"
+          aspect="16by9"
+          :src="generateVudeoUrl(this.flightItem.links.youtube_id)"
+          allowfullscreen
+        ></b-embed>
       </div>
     </b-jumbotron>
   </b-container>
 </template>
 
 <script>
-import axios from "axios";
 import gallery from "./gallery.vue";
 
 export default {
@@ -86,37 +75,19 @@ export default {
   components: {
     gallery
   },
-  props: ["flight"],
-
-  data: () => {
-    return {
-      flightItem: {}
-    };
-  },
-
-  created() {
-    if (!this.flight) {
-      axios
-        .get("https://api.spacexdata.com/v3/launches/past")
-        .then(response => {
-          this.flightItem = response.data.filter(
-            item => item.launch_date_unix === Number(this.$route.params.id)
-          )[0];
-        });
-    } else this.flightItem = this.flight;
-  },
+  props: ["flightItem"],
 
   methods: {
     jumboHeader() {
       return this.flightItem.mission_name;
     },
 
-    badge(flight) {
-      return flight.launch_success ? "success" : "secondary";
+    badge(flightItem) {
+      return flightItem.launch_success ? "success" : "secondary";
     },
 
     generateVudeoUrl(url) {
-      return `https://www.youtube.com/embed/${url}`
+      return `https://www.youtube.com/embed/${url}`;
     }
   }
 };
