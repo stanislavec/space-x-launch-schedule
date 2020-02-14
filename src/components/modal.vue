@@ -1,18 +1,18 @@
 <template>
   <b-modal
-    :id="this.flightItem.mission_name"
+    :id="flight.mission_name"
     size="xl"
     ref="modalWindow"
     hide-footer
-    @close="consoleModal()"
-    title="Using Component Methods"
+    @close="closeModal()"
+    :title="flight.mission_name"
   >
-    <Flight :flightItem="flightItem" />
+    <Flight :flightItem="flight" />
   </b-modal>
 </template>
 
 <script>
-import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
 import Flight from "./flight.vue";
 
 export default {
@@ -21,31 +21,27 @@ export default {
   components: {
     Flight
   },
-  data: () => {
-    return {
-      flightItem: {}
-    };
-  },
+  computed: mapGetters(["latestFlights", "preloader"]),
   methods: {
+    ...mapActions(["fetchLatestFlights"]),
     showModal() {
       this.$refs["modalWindow"].show();
     },
 
-    consoleModal() {
+    closeModal() {
       this.$router.go(-1);
     }
   },
 
   created() {
+    !this.latestFlights ? this.fetchLatestFlights() : "";
+  },
+  beforeMount() {
     if (!this.flight) {
-      axios
-        .get("https://api.spacexdata.com/v3/launches/past")
-        .then(response => {
-          this.flightItem = response.data.filter(
-            item => item.launch_date_unix === Number(this.$route.params.id)
-          )[0];
-        });
-    } else this.flightItem = this.flight;
+      this.flight = this.latestFlights.filter(
+        item => item.launch_date_unix === Number(this.$route.params.id)
+      )[0];
+    }
   },
   mounted() {
     this.showModal();

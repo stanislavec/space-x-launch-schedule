@@ -4,7 +4,7 @@
     <b-container v-else>
       <b-row>
         <b-col
-          v-for="(flight, index) in this.flights"
+          v-for="(flight, index) in latestFlights"
           :key="index"
           lg="4"
           md="6"
@@ -33,18 +33,18 @@
               <label>Launch Date</label>
               <p>
                 {{
-                  moment
-                    .unix(flight.launch_date_unix)
-                    .format("MMMM Do YYYY, h:mm:ss")
+                moment
+                .unix(flight.launch_date_unix)
+                .format("MMMM Do YYYY, h:mm:ss")
                 }}
               </p>
             </div>
             <div class="flight-item__row">
               <label>Status</label>
               <p>
-                <b-badge :variant="badge(flight)">
+                <b-badge :variant="flight.launch_success ? 'success' : 'secondary'">
                   {{
-                    flight.launch_success ? "Success" : "Failure"
+                  flight.launch_success ? "Success" : "Failure"
                   }}
                 </b-badge>
               </p>
@@ -55,12 +55,7 @@
                 params: { id: flight.launch_date_unix, flight: flight }
               }"
             >
-              <b-button
-                block
-                variant="outline-info"
-              >
-                More info
-              </b-button>
+              <b-button block variant="outline-info">More info</b-button>
             </router-link>
           </div>
         </b-col>
@@ -70,38 +65,21 @@
 </template>
 
 <script>
-import axios from "axios";
-import Preloader from './preloader';
+import { mapGetters, mapActions } from "vuex";
+import Preloader from "./preloader";
 
 export default {
   name: "Latest",
 
-  data: () => {
-    return {
-      flights: [],
-      preloader: true
-    };
-  },
-
-  components:{
+  components: {
     Preloader
   },
 
-  mounted() {
-    axios
-      .get("https://api.spacexdata.com/v3/launches/past")
-      .then(response => {
-        this.flights = response.data.reverse();
-      })
-      .finally(() => {
-        this.preloader = false
-      });
+  beforeMount() {
+    !this.latestFlights ? this.fetchLatestFlights() : "";
   },
 
-  methods: {
-    badge(flight) {
-      return flight.launch_success ? "success" : "secondary";
-    }
-  }
+  methods: mapActions(["fetchLatestFlights"]),
+  computed: mapGetters(["latestFlights", "preloader"])
 };
 </script>

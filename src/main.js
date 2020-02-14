@@ -1,5 +1,7 @@
 import Vue from 'vue';
+import Vuex from 'vuex';
 import App from './App.vue';
+import store from './store';
 import moment from 'moment';
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -14,6 +16,7 @@ Vue.use(VueRouter);
 Vue.prototype.moment = moment;
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
+Vue.use(Vuex);
 
 const router = new VueRouter({
 	mode: 'history',
@@ -57,5 +60,6 @@ const router = new VueRouter({
 
 new Vue({
 	router,
+	store,
 	render: h => h(App)
 }).$mount('#app');

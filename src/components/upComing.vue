@@ -4,7 +4,7 @@
     <b-container v-else>
       <b-row>
         <b-col
-          v-for="(flight, index) in this.flights"
+          v-for="(flight, index) in upComingFlights"
           :key="index"
           lg="4"
           md="6"
@@ -29,9 +29,9 @@
               <label>Launch Date</label>
               <p>
                 {{
-                  moment
-                    .unix(flight.launch_date_unix)
-                    .format("MMMM Do YYYY, h:mm:ss")
+                moment
+                .unix(flight.launch_date_unix)
+                .format("MMMM Do YYYY, h:mm:ss")
                 }}
               </p>
             </div>
@@ -43,28 +43,18 @@
 </template>
 
 <script>
-import axios from "axios";
-import Preloader from './preloader';
+import { mapGetters, mapActions } from "vuex";
+import Preloader from "./preloader";
 
 export default {
   name: "UpComing",
-  data: () => {
-    return {
-      flights: [],
-      preloader: true
-    };
-  },
-  components:{
+  components: {
     Preloader
   },
-
-  mounted() {
-    axios
-      .get("https://api.spacexdata.com/v3/launches/upcoming")
-      .then(response => {this.flights = response.data})
-      .finally(() => {
-        this.preloader = false
-      });
+  methods: mapActions(["fetchUpCominglights"]),
+  computed: mapGetters(["upComingFlights", "preloader"]),
+  beforeMount() {
+    !this.upComingFlights ? this.fetchUpCominglights() : "";
   }
 };
 </script>
