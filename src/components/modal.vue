@@ -21,7 +21,7 @@ export default {
   components: {
     Flight
   },
-  computed: mapGetters(["latestFlights", "preloader"]),
+  computed: mapGetters(["latestFlights"]),
   methods: {
     ...mapActions(["fetchLatestFlights"]),
     showModal() {
