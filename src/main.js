@@ -19,47 +19,39 @@ Vue.use(BootstrapVue);
 Vue.use(Vuex);
 
 const router = new VueRouter({
-	mode: 'history',
-	hash: false,
-	routes: [
-		{
-			path:
-				process.env.NODE_ENV === 'production'
-					? '/space-x-launch-schedule/'
-					: '/',
-			name: 'home',
-			component: Main
-		},
-		{
-			path:
-				process.env.NODE_ENV === 'production'
-					? '/space-x-launch-schedule/upcoming'
-					: '/upcoming',
-			name: 'upComing',
-			component: upComing
-		},
-		{
-			path:
-				process.env.NODE_ENV === 'production'
-					? '/space-x-launch-schedule/latest'
-					: '/latest',
-			name: 'latestFlights',
-			component: latestFlights
-		},
-		{
-			path:
-				process.env.NODE_ENV === 'production'
-					? '/space-x-launch-schedule/flight/:id'
-					: '/flight/:id',
-			name: 'flight',
-			component: Modal,
-			props: true
-		}
-	]
+  mode: 'history',
+  hash: false,
+  routes: [
+    {
+      path: process.env.NODE_ENV === 'production' ? '/space-x-launch-schedule/' : '/',
+      name: 'home',
+      component: Main,
+    },
+    {
+      path:
+        process.env.NODE_ENV === 'production' ? '/space-x-launch-schedule/upcoming' : '/upcoming',
+      name: 'upComing',
+      component: upComing,
+    },
+    {
+      path: process.env.NODE_ENV === 'production' ? '/space-x-launch-schedule/latest' : '/latest',
+      name: 'latestFlights',
+      component: latestFlights,
+    },
+    {
+      path:
+        process.env.NODE_ENV === 'production'
+          ? '/space-x-launch-schedule/flight/:id'
+          : '/flight/:id',
+      name: 'flight',
+      component: Modal,
+      props: true,
+    },
+  ],
 });
 
 new Vue({
-	router,
-	store,
-	render: h => h(App)
+  router,
+  store,
+  render: h => h(App),
 }).$mount('#app');

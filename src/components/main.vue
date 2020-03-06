@@ -13,15 +13,14 @@
 </template>
 
 <script>
-
 export default {
-  name: "Main",
+  name: 'Main',
 
   methods: {
     createLinks(url) {
-      return process.env.NODE_ENV === 'production' ? `/space-x-launch-schedule/${url}` : `/${url}`
-    }
-  }
+      return process.env.NODE_ENV === 'production' ? `/space-x-launch-schedule/${url}` : `/${url}`;
+    },
+  },
 };
 </script>
 

@@ -23,20 +23,14 @@
           <div class="flight-item__row">
             <label>Launch Date</label>
             <p>
-              {{
-              moment
-              .unix(this.flightItem.launch_date_unix)
-              .format("MMMM Do YYYY, h:mm:ss")
-              }}
+              {{ moment.unix(this.flightItem.launch_date_unix).format('MMMM Do YYYY, h:mm:ss') }}
             </p>
           </div>
           <div class="flight-item__row">
             <label>Status</label>
             <p>
               <b-badge :variant="badge(this.flightItem)">
-                {{
-                this.flightItem.launch_success ? "Success" : "Failure"
-                }}
+                {{ this.flightItem.launch_success ? 'Success' : 'Failure' }}
               </b-badge>
             </p>
           </div>
@@ -46,10 +40,7 @@
           md="6"
           sm="6"
           xs="12"
-          v-if="
-              this.flightItem.links.flickr_images &&
-                this.flightItem.links.flickr_images.length
-            "
+          v-if="this.flightItem.links.flickr_images && this.flightItem.links.flickr_images.length"
         >
           <gallery :images="this.flightItem.links.flickr_images" />
         </b-col>
@@ -67,15 +58,15 @@
 </template>
 
 <script>
-import gallery from "./gallery.vue";
+import gallery from './gallery.vue';
 
 export default {
-  name: "Flight",
+  name: 'Flight',
 
   components: {
-    gallery
+    gallery,
   },
-  props: ["flightItem"],
+  props: ['flightItem'],
 
   methods: {
     jumboHeader() {
@@ -83,13 +74,13 @@ export default {
     },
 
     badge(flightItem) {
-      return flightItem.launch_success ? "success" : "secondary";
+      return flightItem.launch_success ? 'success' : 'secondary';
     },
 
     generateVudeoUrl(url) {
       return `https://www.youtube.com/embed/${url}`;
-    }
-  }
+    },
+  },
 };
 </script>
 

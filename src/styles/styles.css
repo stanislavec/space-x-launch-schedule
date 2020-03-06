@@ -33,25 +33,25 @@ p {
 }
 
 a {
-  color: unset!important;
-  text-decoration: unset!important;
-  background-color: unset!important;
+  color: unset !important;
+  text-decoration: unset !important;
+  background-color: unset !important;
 }
 
 .btn-block {
-  border-radius: unset!important;
+  border-radius: unset !important;
 }
 
 .card-item {
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.85)!important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
   border-radius: 5px;
 }
 
 .card-item button {
-  border-bottom: unset!important;
-  border-left: unset!important;
-  border-right: unset!important;
-  border-bottom-left-radius: 5px!important;
-  border-bottom-right-radius: 5px!important;
+  border-bottom: unset !important;
+  border-left: unset !important;
+  border-right: unset !important;
+  border-bottom-left-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
 }

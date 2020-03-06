@@ -12,39 +12,39 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import Flight from "./flight.vue";
+import { mapGetters, mapActions } from 'vuex';
+import Flight from './flight.vue';
 
 export default {
-  name: "Modal",
-  props: ["flight"],
+  name: 'Modal',
+  props: ['flight'],
   components: {
-    Flight
+    Flight,
   },
-  computed: mapGetters(["latestFlights"]),
+  computed: mapGetters(['latestFlights']),
   methods: {
-    ...mapActions(["fetchLatestFlights"]),
+    ...mapActions(['fetchLatestFlights']),
     showModal() {
-      this.$refs["modalWindow"].show();
+      this.$refs['modalWindow'].show();
     },
 
     closeModal() {
       this.$router.go(-1);
-    }
+    },
   },
 
   created() {
-    !this.latestFlights ? this.fetchLatestFlights() : "";
+    !this.latestFlights ? this.fetchLatestFlights() : '';
   },
   beforeMount() {
     if (!this.flight) {
       this.flight = this.latestFlights.filter(
-        item => item.launch_date_unix === Number(this.$route.params.id)
+        item => item.launch_date_unix === Number(this.$route.params.id),
       )[0];
     }
   },
   mounted() {
     this.showModal();
-  }
+  },
 };
 </script>
