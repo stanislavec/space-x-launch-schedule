@@ -46,7 +46,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 
-  background: url('https://live.staticflickr.com/65535/48052269657_54c9f02122_h.jpg');
+  background: url('./assets/background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

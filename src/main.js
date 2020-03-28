@@ -18,31 +18,31 @@ Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(Vuex);
 
+const createRoute = url => {
+  return process.env.NODE_ENV === 'production' ? `/space-x-launch-schedule/${url}` : `/${url}`;
+};
+
 const router = new VueRouter({
   mode: 'history',
   hash: false,
   routes: [
     {
-      path: process.env.NODE_ENV === 'production' ? '/space-x-launch-schedule/' : '/',
+      path: createRoute(''),
       name: 'home',
       component: Main,
     },
     {
-      path:
-        process.env.NODE_ENV === 'production' ? '/space-x-launch-schedule/upcoming' : '/upcoming',
+      path: createRoute('upcoming'),
       name: 'upComing',
       component: upComing,
     },
     {
-      path: process.env.NODE_ENV === 'production' ? '/space-x-launch-schedule/latest' : '/latest',
+      path: createRoute('latest'),
       name: 'latestFlights',
       component: latestFlights,
     },
     {
-      path:
-        process.env.NODE_ENV === 'production'
-          ? '/space-x-launch-schedule/flight/:id'
-          : '/flight/:id',
+      path: createRoute('flight/:id'),
       name: 'flight',
       component: Modal,
       props: true,

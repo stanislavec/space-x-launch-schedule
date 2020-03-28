@@ -1,13 +1,14 @@
 <template>
   <b-modal
-    :id="flight.mission_name"
     size="xl"
     ref="modalWindow"
     hide-footer
+    scrollable
+    v-model="showModal"
     @close="closeModal()"
-    :title="flight.mission_name"
+    :title="currentFlight.mission_name"
   >
-    <Flight :flightItem="flight" />
+    <Flight :flightItem="currentFlight" />
   </b-modal>
 </template>
 
@@ -17,34 +18,29 @@ import Flight from './flight.vue';
 
 export default {
   name: 'Modal',
-  props: ['flight'],
+  data() {
+    return {
+      showModal: false,
+    };
+  },
   components: {
     Flight,
   },
-  computed: mapGetters(['latestFlights']),
+  computed: mapGetters(['latestFlights', 'currentFlight']),
   methods: {
-    ...mapActions(['fetchLatestFlights']),
-    showModal() {
-      this.$refs['modalWindow'].show();
-    },
-
+    ...mapActions(['fetchLatestFlights', 'fetchCurrentFlight']),
     closeModal() {
       this.$router.go(-1);
     },
   },
-
   created() {
-    !this.latestFlights ? this.fetchLatestFlights() : '';
-  },
-  beforeMount() {
-    if (!this.flight) {
-      this.flight = this.latestFlights.filter(
-        item => item.launch_date_unix === Number(this.$route.params.id),
-      )[0];
-    }
+    !this.currentFlight && this.fetchCurrentFlight(this.$route.params.id);
   },
   mounted() {
-    this.showModal();
+    this.showModal = true;
+  },
+  beforeDestroyed() {
+    this.showModal = false;
   },
 };
 </script>

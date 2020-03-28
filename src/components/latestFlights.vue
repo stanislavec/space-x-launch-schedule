@@ -43,9 +43,10 @@
               </p>
             </div>
             <router-link
+              @click.native="setCurrentFlight(flight)"
               :to="{
                 name: 'flight',
-                params: { id: flight.launch_date_unix, flight: flight },
+                params: { id: flight.flight_number },
               }"
             >
               <b-button block variant="outline-info">More info</b-button>
@@ -67,7 +68,7 @@ export default {
     !this.latestFlights ? this.fetchLatestFlights() : '';
   },
 
-  methods: mapActions(['fetchLatestFlights']),
+  methods: mapActions(['fetchLatestFlights', 'setCurrentFlight']),
   computed: mapGetters(['latestFlights']),
 };
 </script>
